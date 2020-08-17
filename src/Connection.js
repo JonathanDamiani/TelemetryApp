@@ -34,7 +34,8 @@ export default class Connection {
                     buildId: teleRecord.buildId,
                     playerId: teleRecord.playerId,
                     pos: teleRecord.pos,
-                    status: teleRecord.data.status
+                    status: teleRecord.data.status,
+                    class: teleRecord.playerClass
                 }
             )
             .then(() => {
@@ -57,6 +58,23 @@ export default class Connection {
             .then((res) => {
                 console.log("Document returned!");
                 resolve(res.data())
+            })
+            .catch((error) => {
+                reject(error);
+                console.error("Doc doesnt exist ", error);
+            });
+            
+        })
+    }
+
+    // Get telemetry record from firebase
+    getAllTeleRecords() {
+        return new Promise( (resolve, reject ) => {
+            let collection = this.datastore.collection ( "telemetry" ); 
+            collection.get()
+            .then((res) => {
+                console.log("Documents returned!");
+                resolve(res)
             })
             .catch((error) => {
                 reject(error);

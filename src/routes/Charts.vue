@@ -15,6 +15,20 @@ Copyright (c) 2020. Jonathan Dean. All Rights Reserved.
 
         constructor( name, subComponentList = []) {
             super( name, subComponentList );
+
+            this.injectActions(['getAllRecords']);
+            this.injectGetters(['allTeleRecords']);
+        }
+
+        async vue_mounted()
+        {
+            await this.getAllRecords();
+            let dataFromFirebase = this.allTeleRecords;
+            let data = []
+
+            dataFromFirebase.forEach( (doc) => {
+                data.push(doc.data());
+            });
         }
     }
 

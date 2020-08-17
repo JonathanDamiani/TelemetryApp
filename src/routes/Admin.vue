@@ -5,7 +5,7 @@ Copyright (c) 2020. Jonathan Dean. All Rights Reserved.
 <template>
     <section>
         <h1>Admin</h1>
-        <form @submit.prevent="saveInfo(buildId, playerId, posX, posY, playerStatus)" class="admin-form">
+        <form @submit.prevent="saveInfo(buildId, playerId, posX, posY, playerStatus, playerClass)" class="admin-form">
             <div class="admin-form-field">
                 <label>Build ID: </label>
                 <input id="buildId" type="number" v-model="buildId">     
@@ -28,7 +28,20 @@ Copyright (c) 2020. Jonathan Dean. All Rights Reserved.
 
             <div class="admin-form-field">
                 <label>Status: </label>
-                <input id="playerStatus" type="text" v-model="playerStatus">     
+                <select v-model="playerStatus">
+                    <option>Online</option>
+                    <option>Offline</option>
+                </select>  
+            </div>
+
+            <div class="admin-form-field">
+                <label>Player Class: </label>
+                <select v-model="playerClass">
+                    <option>Knight</option>
+                    <option>Mage</option>
+                    <option>Fighter</option>
+                    <option>Rogue</option>
+                </select>  
             </div>
 
             <button id="admin-form-btn" class="admin-form-btn" value="Submit">Save</button>
@@ -53,15 +66,17 @@ Copyright (c) 2020. Jonathan Dean. All Rights Reserved.
                 playerId: "",
                 posX: 0,
                 posY: 0,
-                playerStatus: "Offline"
+                playerStatus: "Online",
+                playerClass: "Knight"
             }
 
             this.injectActions(['saveRecord', "getRecord"]);
             this.injectGetters(['teleRecord']);
         }
 
-        saveInfo(buildId, playerId, posX, posY, playerStatus) {
-            let recData = new TelemetryRecord(buildId, playerId, posX, posY, playerStatus);
+        saveInfo(buildId, playerId, posX, posY, playerStatus, playerClass) {
+            let recData = new TelemetryRecord(buildId, playerId, posX, posY, playerStatus, playerClass);
+            console.log(recData.data);
             this.saveRecord(recData);
         }
     

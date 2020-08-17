@@ -14,12 +14,14 @@ const cloud = new Connection();
 const store = new Vuex.Store({
     state: {
         currentRec: new TelemetryRecord(),
-        teleRecord: {}
+        teleRecord: {},
+        allTeleRecords: {}
     },
 
     getters: {
         currentRec: state => state.currentRec,
-        teleRecord: state => state.teleRecord
+        teleRecord: state => state.teleRecord,
+        allTeleRecords: state => state.allTeleRecords
     },
 
     actions: {
@@ -33,12 +35,19 @@ const store = new Vuex.Store({
             // await for the data to set in the vuex
             let data = await cloud.getTeleRecord(getters.currentRec.playerId);
             commit('SET_RECORD', data);
+        },
+
+        async getAllRecords({commit}) { 
+            // await for the data to set in the vuex
+            let data = await cloud.getAllTeleRecords();
+            commit('SET_ALL_RECORDS', data);
         }
     },
 
     mutations: {
         SET_CURRENT: (state,  newTeleRecord) => { state.currentRec = newTeleRecord},
-        SET_RECORD: (state,  teleRecord) => { state.teleRecord = teleRecord}
+        SET_RECORD: (state,  teleRecord) => { state.teleRecord = teleRecord},
+        SET_ALL_RECORDS: (state, teleRecords) => {state.allTeleRecords = teleRecords}
     }
 });
 
