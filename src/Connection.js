@@ -35,7 +35,8 @@ export default class Connection {
                     playerId: teleRecord.playerId,
                     pos: teleRecord.pos,
                     status: teleRecord.data.status,
-                    class: teleRecord.playerClass
+                    class: teleRecord.playerClass,
+                    dayCreated: teleRecord.dayCreated
                 }
             )
             .then(() => {

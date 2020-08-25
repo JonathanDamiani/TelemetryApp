@@ -3,7 +3,7 @@
 
 export default class TelemetryRecord {
 
-    constructor ( buildId = 0, playerId = 0, posX, posY, status, playerClass) {
+    constructor ( buildId = 0, playerId = 0, posX, posY, status, playerClass, dayCreated) {
         this.data = {
             buildId,
             playerId,
@@ -12,7 +12,8 @@ export default class TelemetryRecord {
                 y: posY
             },
             status: status,
-            playerClass: playerClass
+            playerClass: playerClass,
+            dayCreated: dayCreated
         }
     }
 
@@ -27,4 +28,7 @@ export default class TelemetryRecord {
 
     get playerClass() { return this.data.playerClass }
     set playerClass (val) { this.data.playerClass = val}
+
+    get dayCreated() { return this.data.dayCreated }
+    set dayCreated (val) { this.data.dayCreated = val}
 }
